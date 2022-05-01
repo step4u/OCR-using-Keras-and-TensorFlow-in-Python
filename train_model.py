@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelBinarizer
 from imutils import build_montages
-from keras.optimizers import SGD
+from keras.optimizers import gradient_descent_v2
 from keras.preprocessing.image import ImageDataGenerator
 
 from models import ResNet
@@ -89,7 +89,7 @@ aug = ImageDataGenerator(rotation_range=10, zoom_range=0.05, width_shift_range=0
 # initialize and compile our deep neural network
 print("[INFO] compiling model...")
 
-opt = SGD(lr=INIT_LR, decay=INIT_LR / EPOCHS)
+opt = gradient_descent_v2.SGD(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model = ResNet.build(32, 32, 1, len(le.classes_), (3, 3, 3),
                      (64, 64, 128, 256), reg=0.0005)
 model.compile(loss="categorical_crossentropy",
