@@ -1,5 +1,6 @@
-from tensorflow.keras.datasets import mnist
+from keras.datasets import mnist
 import numpy as np
+
 
 def load_az_dataset(dataset_path):
     # initialize the list of data and labels

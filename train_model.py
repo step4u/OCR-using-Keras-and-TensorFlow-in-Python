@@ -1,4 +1,6 @@
 # set the matplotlib backend so figures can be saved in the background
+from utils import load_zero_nine_dataset
+from utils import load_az_dataset
 import cv2
 import argparse
 import numpy as np
@@ -6,15 +8,14 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelBinarizer
-from tensorflow.keras.optimizers import SGD
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from imutils import build_montages
+from keras.optimizers import SGD
+from keras.preprocessing.image import ImageDataGenerator
 
 from models import ResNet
 # from typing_extensions import Required
 import matplotlib
 matplotlib.use("Agg")
-from utils import load_az_dataset
-from utils import load_zero_nine_dataset
 
 # import the necessary packages
 
@@ -129,7 +130,7 @@ plt.ylabel("Loss/Accuracy")
 plt.legend(loc="lower left")
 plt.savefig(args["plot"])
 
-images = [] 
+images = []
 # randomly select a few testing characters
 for i in np.random.choice(np.arange(0, len(testY)), size=(49,)):
     # classify the character
@@ -152,7 +153,7 @@ if prediction[0] != np.argmax(testY[i]):
 image = cv2.merge([image] * 3)
 image = cv2.resize(image, (96, 96), interpolation=cv2.INTER_LINEAR)
 cv2.putText(image, label, (5, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.75,
-color, 2)
+            color, 2)
 
 # add the image to our list of output images
 images.append(image)
